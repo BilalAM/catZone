@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    z
+    <title>Owners</title>
+
+    <link rel="stylesheet" type="text/css"
+          href="webjars/bootstrap/4.0.0/css/bootstrap.min.css" media="screen" />
+    <link rel="stylesheet" type="text/css" th:href = "@{css/bilal-css.css}" media="screen" />
+
+    <script type="text/javascript" src="/webjars/jquery/3.3.1/jquery.min.js"></script>
+
+</head>
+<body>
+<div class = "row">
+    <div class = "col-md-2"></div>
+    <div class = "col-md-8">
+        <div class="container-fluid">
+            <div class="row">
+                <br/>
+                <div class='col-md-4' th:each="owner : ${byName}">
+                    <div class = "card">
+                        <div class="card-body" align="center">
+                            <h4 class="card-title" th:text = "${owner.ownerName}" align="center">Name Of Owner</h4>
+                           <!-- <img class = "owner-image" th:src=${owner.ownerImage.imagePath}> -->
+                            <p style="display: inline-block">Number Of Cats Owned :</p> <h5 style="display: inline-block">[[${#lists.size(owner.cats)}]]</h5>
+                            <div align="center">
+                                <a class="btn btn-dark" th:href = "${'/owners/view/' + owner.ownerName}" th:data-target ="${'#myModal' + owner.ownerId}">View Profile</a>
+                                <form action="/deleteOwner" method="post" style="display: inline;">
+                                    <input type="hidden" name="ownerId" th:value = "${owner.ownerId}" />
+                                    <button type="submit" class="btn btn-dark"
+                                            onclick="return confirm('Sure you want to delete')">Delete</button>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                    <br/>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+<script src="webjars/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+</body>
+</html>

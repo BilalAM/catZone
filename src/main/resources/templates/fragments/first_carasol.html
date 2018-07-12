@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title sec:authentication="name"></title>
+
+
+<link rel="stylesheet" type="text/css"
+	href="webjars/bootstrap/4.0.0/css/bootstrap.min.css" media="screen" />
+
+<link rel="stylesheet" type="text/css" th:href="@{css/bilal-css.css}"
+	media="screen" />
+
+<script type="text/javascript" src="/webjars/jquery/3.3.1/jquery.min.js"></script>
+
+<script th:fragment="fragment_picture_upload">
+	var loadFile = function(event) {
+		var output = document.getElementById('image');
+		image.src = URL.createObjectURL(event.target.files[0]);
+	};
+function standby() {
+    document.getElementById('image').src = 'random_images/upload_image_logo.png'
+}
+	
+</script>
+
+</head>
+<body>
+
+	<div class="container" th:fragment="fragment_picture_username(owner)">
+		<form th:action="@{/home/firstTime}" method="post" enctype="multipart/form-data">
+
+			<div class="row">
+				<div class="col-md-6">
+					<h4>User Name</h4>
+				</div>
+				<div class="col-md-6">
+					<input type="text" id="ownerName" name="ownerName"
+						placeholder="Publicily Visible Name..."
+						th:value="${owner.ownerName}">
+				</div>
+			</div>
+			<hr />
+			<div class="row">
+				<div class="col-md-6">
+					<br />
+					<br />
+					<h4>Profile Picture</h4>
+				</div>
+				<div class="col-md-6">
+					<img id="image" class="owner-image-profile" alt="picture here.."
+						th:src="${owner?.ownerImage?.imagePath}" onerror="this.onerror=null;this.src='random_images/upload_image_logo.png';" />
+					<input
+						class="btn btn-small" type="file" id="ownerImage"
+						name="ownerImage" accept="image/*" value="Upload Profile Picture"
+						onchange="loadFile(event)" />
+				</div>
+			</div>
+			<br />
+			<button type="submit">Add</button>
+		</form>
+	</div>
+
+</body>
+</html>

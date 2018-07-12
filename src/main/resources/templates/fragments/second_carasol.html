@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title sec:authentication="name"></title>
+
+
+    <link rel="stylesheet" type="text/css"
+          href="webjars/bootstrap/4.0.0/css/bootstrap.min.css" media="screen"/>
+
+    <link rel="stylesheet" type="text/css" th:href="@{css/bilal-css.css}"
+          media="screen"/>
+
+    <script type="text/javascript" src="/webjars/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+<div th:fragment="fragment_cats">
+    <button class="btn" type="button" data-toggle="collapse" data-target="#newCatDiv"
+            aria-expanded="false" aria-controls="collapseExample">New Cat
+    </button>
+    <div class="collapse" id="newCatDiv">
+        <div class="card card-body newCat-card">
+            <form action="/firstTime" method="post" enctype="multipart/form-data">
+                <input type="text" name="catName" id="catName" pattern="[a-zA-Z]+" required width="50px"
+                       placeholder="Cat Name">
+                <input type="text" name="catFurDensity" id="furDensity" pattern="[0-9]+(\.)[0-9]+" required
+                       width="50px"
+                       placeholder="Fur density in decimal">
+                <input type="file" name="catPicture" id="catPicture" accept="image/*">
+                <button type="submit">Add</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

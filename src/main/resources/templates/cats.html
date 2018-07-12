@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Cats</title>
+
+    <link rel="stylesheet" type="text/css"
+          href="webjars/bootstrap/4.0.0/css/bootstrap.min.css" media="screen"/>
+    <link rel="stylesheet" type="text/css" th:href="@{css/bilal-css.css}" media="screen"/>
+    <script type="text/javascript" src="/webjars/jquery/3.3.1/jquery.min.js"></script>
+
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <button class="btn btn-primary new-cat-button" type="button" data-toggle="collapse" data-target="#newCatDiv"
+                    aria-expanded="false" aria-controls="collapseExample">New Cat
+            </button>
+            <div class="collapse" id="newCatDiv">
+                <div class="card card-body newCat-card">
+                    <form action="/newCat" method="post" enctype="multipart/form-data">
+                        <input type="text" name="catName" id="catName" pattern="[a-zA-Z]+" required width="50px"
+                               placeholder="Cat Name">
+                        <input type="text" name="catFurDensity" id="furDensity" pattern="[0-9]+(\.)[0-9]+" required
+                               width="50px"
+                               placeholder="Fur density in decimal">
+                        <input type="file" name="catPicture" id="catPicture" accept="image/*">
+                        <button type="submit" onclick="return confirm('THIS IS ALSO GOING TO DELETE FROM OWNER')">Add</button>
+                    </form>
+                </div>
+            </div>
+            <div th:each="cat : ${cats}">
+                <div class="card card-body">
+                    <h3 th:text="${cat.catName}"></h3>
+                    <img class="owner-image" th:src = "${cat?.catImage?.imagePath}"/>
+
+                    <form action="/deleteCat" method="post" style="display: inline;">
+                        <input type="hidden" name="catId" th:value = "${cat.id}" />
+                        <button type="submit" class="btn btn-dark"
+                                onclick="return confirm('THIS IS ALSO GOING TO DELETE FROM OWNER')">Delete</button>
+                    </form>
+                    <br/>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-2"></div>
+    </div>
+</div>
+<script src="webjars/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>

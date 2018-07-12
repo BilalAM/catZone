@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>name of owner here..</title>
+
+    <link rel="stylesheet" type="text/css"
+          href="/webjars/bootstrap/4.0.0/css/bootstrap.min.css" media="screen"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bilal-css.css}" media="screen"/>
+    <script type="text/javascript" src="/webjars/jquery/3.3.1/jquery.min.js"></script>
+
+
+</head>
+<body>
+<p th:text="${message}"></p>
+<div class="row">
+    <div class="container">
+        <div align="center">
+            <img class="owner-image-profile" th:src="${'/' + owner?.ownerImage?.imagePath}"/>
+        </div>
+        <h1 class="owner-main-title-profile" align="center" th:text="${owner?.ownerName}"></h1>
+        <h3 class="owner-main-title-profile" align="center">Owned Cats</h3>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-4" th:each = "cat : ${owner.cats}">
+                    <div class = "card">
+                        <div class="card-body" align="center">
+                            <img class = "owner-image" th:src="${'/' + cat?.catImage?.imagePath}" alt = "no image found..">
+                            <p th:text = "${cat.catName}"></p>
+                            <p th:text = "${cat.furDensity}"></p>
+                            <form action="/deleteOwnerCat" th:action = "@{/deleteOwnerCat}" method="post" style="display: inline;">
+                                <input type="hidden" name = "catName" th:value="${cat.catName}" />
+                                <button type="submit" class="btn btn-dark"
+                                        onclick="return confirm('Sure you want to delete')">Delete</button>
+                            </form>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+
+
+<script src="webjars/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>

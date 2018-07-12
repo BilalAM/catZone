@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title sec:authentication="name"></title>
+
+
+    <link rel="stylesheet" type="text/css"
+          href="webjars/bootstrap/4.0.0/css/bootstrap.min.css" media="screen"/>
+
+    <link rel="stylesheet" type="text/css" th:href="@{css/bilal-css.css}" media="screen"/>
+
+    <script type="text/javascript" src="/webjars/jquery/3.3.1/jquery.min.js"></script>
+
+
+</head>
+<body>
+<div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light google-font" th:fragment="header(name)" style="height: 90px;">
+        <a class="navbar-brand header-profile-name" href="#" th:text = "${name.ownerName}"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto" style="padding-left:100px;">
+                <li class="nav-item">
+                    <a class="nav-link header-profile-options" href="#">Home  <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link header-profile-options" href="#">Followers </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link header-profile-options" href="#">Profile </a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+
+            <div class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false" style="padding:left:40px ; padding-right:40px;">
+                    Menu
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <!--  <a class="dropdown-item" href="#">Action</a> -->
+                    <form class="dropdown-item" sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
+                        <button type="submit" class="btn btn-link">Sign Out</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </nav>
+</div>
+<script src="webjars/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>
